@@ -16,7 +16,7 @@ def circle(t, r, angle):
     circuferencia = 2 * math.pi * r 
     comprimento = circuferencia * (angle / 360)
     lado = comprimento / n
-    polygon(julio, lado, n, 360)
+    polygon(julio, lado, n, 30)
 
 
 circle(julio, 30, 360)
