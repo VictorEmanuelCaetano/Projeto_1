@@ -30,3 +30,9 @@ O calculo do consumo mensal segue esta formula:
 ```text
 consumo = (potencia * horas_de_uso * 30) / 1000
 valor = consumo * preco_do_kw
+
+```
+
+## No futuro
+- Adicionar uma interface gráfica
+- mais funções
