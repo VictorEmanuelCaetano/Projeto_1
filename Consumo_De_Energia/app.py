@@ -12,7 +12,7 @@ Consertado! (talvez...)
 def limpar(): # verifica o sistema operacional do usuário, se é windows executa "cls", se é linux ou mac executa "clear"
     os.system("cls" if os.name == "nt" else "clear")
     
-    
+#entrada  
 def pegar_informacoes():
     # Cuida de erros e pega o valor inicial das variáveis.
     while True: # o loop while serve para não travar o código na hora de verificar erros
@@ -76,7 +76,7 @@ def pegar_informacoes():
     
 
 
-
+# processamento
 #calcula o consumo e valor
 def calcular(potencia, horas_de_uso, preco_do_kw):
     consumo = (potencia * horas_de_uso * DIAS_NO_MES) / 1000 # fórmula do consumo
@@ -84,6 +84,8 @@ def calcular(potencia, horas_de_uso, preco_do_kw):
     
     return consumo, valor # retorna consumo e valor porque não existem fora da função
 
+
+#saída
 def main():
     nome, potencia, horas_de_uso, preco_do_kw = pegar_informacoes() 
     consumo, valor = calcular(potencia, horas_de_uso, preco_do_kw)
