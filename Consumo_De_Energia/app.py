@@ -1,5 +1,7 @@
 import os
 import time
+from datetime import datetime
+from pathlib import Path
 
 DIAS_NO_MES = 30 #variáveis padrão que podem ser ajustadas conforme a necessidade
 PREÇO_KWH_PADRAO = 0.75
@@ -19,7 +21,7 @@ def pegar_informacoes():
         limpar() # chama a função para limpar o código velho
         print("-" * 100) # estética
         
-        print("Dicas de uso: para escrever números em casas decimais use o ponto em vez de virgula ex: 0.53 \n")
+        print("Calculadora de consumo elétrico \n")
         nome = input("Qual é o nome do aparelho?\n    ").strip() # Recebe o nome do aparelho
         print(" "* 100) # estética
         if not nome: # Se o nome estiver em branco, dá um erro e reinicia
@@ -28,10 +30,10 @@ def pegar_informacoes():
             continue
         
         try: # try, tenta receber os valores numéricos, se estiverem corretos ok! mas se estiverem errados chama except: linha 9
-            potencia = float(input("Qual é a potência do aparelho em watts? \n    ").replace(",", ".")) # Recebe a potencia do aparelho
+            potencia = float(input("Qual é a potência do aparelho em watts? \n    ")) # Recebe a potencia do aparelho
             print(" "* 100)
             
-            horas_de_uso = float(input("Qual é o tempo de uso por dia em horas? \n    ").replace(",", ".")) # Recebe a o tempo de uso diário
+            horas_de_uso = float(input("Qual é o tempo de uso por dia em horas? \n    ")) # Recebe a o tempo de uso diário
             print(" "* 100)
             
             entrada_preco = input("Qual é o preço do kW da sua cidade? Obs: Se você não sabe apenas deixe em branco para estimar uma média de preço: \n    ").strip() # Preço do KiloWatt, se você inserir 0 coloca uma média aproximada para todo o Brasil
@@ -44,7 +46,7 @@ def pegar_informacoes():
         except ValueError: # Prossegue se algum valor de cima estiver errado ^
         
             print("Erro: Você deve inserir um valor numérico!")
-            time.sleep(2)
+            time.sleep(3)
             limpar()
             continue # Para o código a partir desse ponto e reinicia o loop
               
@@ -52,21 +54,21 @@ def pegar_informacoes():
         if potencia <= 0:
             
             print("Erro: Potencia não pode ser menor que 1")
-            time.sleep(2)
+            time.sleep(3)
             limpar()
             continue
         
         if horas_de_uso <= 0 or horas_de_uso > 24:
             
             print("Erro: Tempo não pode ser menor que 1 ou maior que 24")
-            time.sleep(2)
+            time.sleep(3)
             limpar()
             continue
         
         if preco_do_kw <= 0:
         
             print("Erro: Preço não pode ser menor que 1")
-            time.sleep(2)
+            time.sleep(3)
             limpar()
             continue
         
@@ -95,7 +97,37 @@ def main():
         limpar()
         print(f"calculando{'.'*i}")
         time.sleep(1)
-        print(f"Aparelho: {nome} \nConsumo: {consumo:.2f} kWh/mês \nPreço estimado: R${valor:.2f} ")
         
+    print(f"Aparelho: {nome} \nConsumo: {consumo:.2f} kWh/mês \nPreço estimado: R${valor:.2f}")
+    pergunte_para_salvar(nome, consumo, valor)
+    
+    
+        
+def pergunte_para_salvar(nome, consumo, valor):
+    confirmação = input("Gostaria de salvar o resultado em um arquivo? s/n? ").lower()
+    if confirmação == "s":
+        salvar_dados(nome, consumo, valor)
+    else:
+        return
+    
+    
+def salvar_dados(nome, consumo, valor):
+    pasta_do_código = Path(__file__).resolve().parent
+    caminho_arquivo = pasta_do_código / "Dados Salvos.txt"
+    data = datetime.now()
+    data_formatada = data.strftime(f"{'%d/%m/%y %H:%M:%S'}")
+    
+    texto = (
+        f"Data: {data_formatada} \n"
+        f"Aparelho: {nome} \n"
+        f"Consumo: {consumo:.2f} kWh/mês \n"
+        f"Preço estimado: R${valor:.2f} \n \n \n \n"
+        
+    )
+    with open(caminho_arquivo, "a", encoding="utf-8") as arquivo:
+        arquivo.write(texto)
+    print("Informações salvas com sucesso!")
+
+    
 if __name__ == "__main__":
     main()
