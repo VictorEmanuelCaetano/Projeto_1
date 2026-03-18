@@ -4,6 +4,7 @@ import time
 
 '''
 Devido a algum bug do vs code, para a função de limpar funcionar corretamente execute o código no terminal dedicado
+Consetado!
 
 '''
 def limpar(): # verifica o sistema operacional do usuário, se é windows executa "cls", se é linux ou mac executa "clear"
