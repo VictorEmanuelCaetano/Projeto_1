@@ -17,7 +17,7 @@ def pegar_informacoes():
         print("-" * 100) # estética
         nome = input("Qual é o nome do aparelho?\n    ").strip() # Recebe o nome do aparelho
         print(" "* 100) # estética
-        if not nome:
+        if not nome: # Se o nome estiver em branco, dá um erro e reinicia
             limpar()
             print("O nome não pode estar em branco!")
             continue
