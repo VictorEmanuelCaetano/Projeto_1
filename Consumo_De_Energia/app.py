@@ -1,7 +1,7 @@
-import os
-import time
-from datetime import datetime
-from pathlib import Path
+import os # Biblioteca padrão do python, usada aqui para limpar a tela
+import time # Biblioteca padrão do python, usada para adicionar delays
+from datetime import datetime # Biblioteca padrão do python, usada para obter a hora exata do computador
+from pathlib import Path # Biblioteca padrão do python, usada para salvar arquivos no diretório correto
 
 DIAS_NO_MES = 30 #variáveis padrão que podem ser ajustadas conforme a necessidade
 PREcO_DO_KW_PADRAO = 0.75
@@ -110,7 +110,7 @@ def main():
     
     
         
-def pergunte_para_salvar(nome, consumo, valor):
+def pergunte_para_salvar(nome, consumo, valor): #funcao que pergunta se o usuário quer salvar os dados
     confirmacão = input("Gostaria de salvar o resultado em um arquivo? s/n? ").lower()
     if confirmacão == "s":
         salvar_dados(nome, consumo, valor)
@@ -124,17 +124,17 @@ def salvar_dados(nome, consumo, valor):
     data = datetime.now()
     data_formatada = data.strftime("%d/%m/%y %H:%M:%S")
     
-    texto = (
+    texto = ( #formata o texto corretamente para inserir no arquivo txt
         f"Data: {data_formatada} \n"
         f"Aparelho: {nome} \n"
         f"consumo: {consumo:.2f} kWh/mês \n"
         f"Preco estimado: R${valor:.2f} \n \n \n \n"
         
     )
-    with open(caminho_arquivo, "a", encoding="utf-8") as arquivo:
+    with open(caminho_arquivo, "a", encoding="utf-8") as arquivo: #escreve a informacao no arquivo
         arquivo.write(texto)
     print("Informacões salvas com sucesso!")
 
     
-if __name__ == "__main__":
+if __name__ == "__main__": #funcao principal
     main()
